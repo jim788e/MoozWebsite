@@ -96,6 +96,16 @@ import Icon from './Icon.astro';
     }
   };
 
-  handleLoadStats();
-  document.addEventListener('astro:after-swap', handleLoadStats);
+  const scheduleStatsLoad = (): void => {
+    const load = () => void handleLoadStats();
+
+    window.setTimeout(load, 1200);
+  };
+
+  if (document.readyState === 'complete') {
+    scheduleStatsLoad();
+  } else {
+    window.addEventListener('load', scheduleStatsLoad, { once: true });
+  }
+  document.addEventListener('astro:after-swap', scheduleStatsLoad);
 </script>

@@ -6,6 +6,9 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: "https://www.mooz.top",
   adapter: vercel(),
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
