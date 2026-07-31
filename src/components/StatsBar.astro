@@ -96,16 +96,19 @@ import Icon from './Icon.astro';
     }
   };
 
+  let statsRequested = false;
   const scheduleStatsLoad = (): void => {
-    const load = () => void handleLoadStats();
+    if (statsRequested) {
+      return;
+    }
 
-    window.setTimeout(load, 1200);
+    statsRequested = true;
+    void handleLoadStats();
   };
 
-  if (document.readyState === 'complete') {
-    scheduleStatsLoad();
-  } else {
-    window.addEventListener('load', scheduleStatsLoad, { once: true });
-  }
+  // Live stats are supplementary content. Wait for real user engagement so an
+  // uncached upstream response can never extend the initial page's LCP chain.
+  window.addEventListener('scroll', scheduleStatsLoad, { once: true, passive: true });
+  window.addEventListener('pointerdown', scheduleStatsLoad, { once: true, passive: true });
   document.addEventListener('astro:after-swap', scheduleStatsLoad);
 </script>
