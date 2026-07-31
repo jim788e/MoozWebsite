@@ -220,13 +220,11 @@ import logoImg from '../assets/images/logo.webp';
       ctaObserver.observe(ctaSection);
     }
 
-    // ----------------------------------------------------
-    // 4. GSAP Scroll Animations
-    // ----------------------------------------------------
-    // Check user preference for reduced motion before running animations
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Keep non-essential animations off the critical path. The page remains fully
+    // usable without them, avoiding a third-party animation runtime on first load.
+    return;
 
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && !prefersReducedMotion) {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
       // Hero animations

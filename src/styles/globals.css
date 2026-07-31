@@ -43,10 +43,23 @@
   body {
     @apply bg-background text-foreground;
   }
-  html {
+html {
     scroll-behavior: smooth;
     scroll-padding-top: 4rem;
   }
+}
+
+/* Keep off-screen sections out of the initial render work. */
+#marketplace,
+#lab,
+#synergy,
+#roadmap,
+#team,
+#faq,
+#cta-section,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* Glowing Effects */
